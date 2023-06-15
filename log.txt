@@ -1,0 +1,12 @@
+URL: /
+Timestamp: Tue Jun 13 2023 11:19:54 GMT-0400 (Eastern Daylight Time)
+
+URL: /style.css
+Timestamp: Tue Jun 13 2023 11:19:54 GMT-0400 (Eastern Daylight Time)
+
+URL: /index.js
+Timestamp: Tue Jun 13 2023 11:19:54 GMT-0400 (Eastern Daylight Time)
+
+URL: /favicon.ico
+Timestamp: Tue Jun 13 2023 11:19:54 GMT-0400 (Eastern Daylight Time)
+
