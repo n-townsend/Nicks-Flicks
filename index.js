@@ -28,17 +28,17 @@ app.use(express.static('public')); // Will route any request for static files to
   Birthday: Date
 }*/
 app.post('/users', (req, res) => {
-    Users.findOne({ Username: req.body.Username }) //Looks for existing username
+    Users.findOne({ username: req.body.username }) //Looks for existing username
       .then((user) => {
         if (user) {
-          return res.status(400).send(req.body.Username + 'already exists');//If it exists
+          return res.status(400).send(req.body.username + 'already exists');//If it exists
         } else {//If it is available
           Users
             .create({
-              Username: req.body.Username,
-              Password: req.body.Password,
-              Email: req.body.Email,
-              Birthday: req.body.Birthday
+              username: req.body.username,
+              password: req.body.password,
+              email: req.body.email,
+              birthday: req.body.birthday
             })
             .then((user) =>{res.status(201).json(user) })//Informs client that user has been created
           .catch((error) => {
@@ -66,11 +66,11 @@ app.get('/movies', (req, res) => {
 });
 
 //Return Specific Movie by Title
-app.get('/movies/:Title', (req, res) => {
-	Movies.findOne({ Title: req.params.Title })
+app.get('/movies/:title', (req, res) => {
+	Movies.findOne({ title: req.params.title })
 		.then((movie) => {
 			if (!movie) {
-				return res.status(404).send('Error: ' + req.params.Title + ' was not found');
+				return res.status(404).send('Error: ' + req.params.title + ' was not found');
 			}
 			res.status(200).json(movie);
 		})
@@ -81,11 +81,11 @@ app.get('/movies/:Title', (req, res) => {
 });
 
 //Return data about a genre by name
-app.get('/movies/genres/:Genre', (req, res) => {
-	Movies.find({ 'Genre.name': req.params.Genre })
+app.get('/movies/genres/:genre', (req, res) => {
+	Movies.find({ 'genre.name': req.params.genre })
 		.then((movies) => {
 			if (movies.length == 0) {
-				return res.status(404).send('Error: no movies found with the ' + req.params.Genre + ' genre type.');
+				return res.status(404).send('Error: no movies found with the ' + req.params.genre + ' genre type.');
 			} else {
 				res.status(200).json(movies);
 			}
@@ -97,11 +97,11 @@ app.get('/movies/genres/:Genre', (req, res) => {
 });
 
 //Return data about a director by name
-app.get('/movies/directors/:Director', (req, res) => {
-	Movies.find({ 'Director.name': req.params.Director })
+app.get('/movies/directors/:director', (req, res) => {
+	Movies.find({ 'director.name': req.params.director })
 		.then((movies) => {
 			if (movies.length == 0) {
-				return res.status(404).send('Error: no movies found with the director ' + req.params.Director + ' name');
+				return res.status(404).send('Error: no movies found with the director ' + req.params.director + ' name');
 			} else {
 				res.status(200).json(movies);
 			}
@@ -125,8 +125,8 @@ app.get('/users', (req, res) => {
   });
 
 //Return a single user by username
-app.get('/users/:Username', (req, res) => {
-    Users.findOne({ Username: req.params.Username })
+app.get('/users/:username', (req, res) => {
+    Users.findOne({ username: req.params.username })
       .then((user) => {
         res.json(user);
       })
@@ -147,15 +147,15 @@ app.get('/users/:Username', (req, res) => {
   (required)
   Birthday: Date
 }*/
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:username', (req, res) => {
 	Users.findOneAndUpdate(
-		{ Username: req.params.Username },
+		{ username: req.params.username },
 		{
 			$set: {
-				Username: req.body.Username,
-				Password: req.body.Password,
-				Email: req.body.Email,
-				Birthday: req.body.Birthday,
+				username: req.body.username,
+				password: req.body.password,
+				email: req.body.email,
+				birthday: req.body.birthday,
 			},
 		},
 		{ new: true }
@@ -174,11 +174,11 @@ app.put('/users/:Username', (req, res) => {
 });
 
 //Allow users to add movie to favorites list
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
+app.post('/users/:username/movies/:movieID', (req, res) => {
 	Users.findOneAndUpdate(
-		{ Username: req.params.Username },
+		{ username: req.params.username },
 		{
-			$addToSet: { FavoriteMovies: req.params.MovieID },
+			$addToSet: { favoriteMovies: req.params.movieID },
 		},
 		{ new: true }
 	)
@@ -196,11 +196,11 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 //Allow users to remove movie from favorites list
-app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+app.delete('/users/:username/movies/:movieID', (req, res) => {
 	Users.findOneAndUpdate(
-		{ Username: req.params.Username },
+		{ username: req.params.username },
 		{
-			$pull: { FavoriteMovies: req.params.MovieID },
+			$pull: { favoriteMovies: req.params.movieID },
 		},
 		{ new: true }
 	)
@@ -218,13 +218,13 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 //Allow a user to be removed
-app.delete('/users/:Username', (req, res) => {
-	Users.findOneAndRemove({ Username: req.params.Username })
+app.delete('/users/:username', (req, res) => {
+	Users.findOneAndRemove({ username: req.params.username })
 		.then((user) => {
 			if (!user) {
-				res.status(404).send('User ' + req.params.Username + ' was not found');
+				res.status(404).send('User ' + req.params.username + ' was not found');
 			} else {
-				res.status(200).send(req.params.Username + ' was deleted.');
+				res.status(200).send(req.params.username + ' was deleted.');
 			}
 		})
 		.catch((err) => {

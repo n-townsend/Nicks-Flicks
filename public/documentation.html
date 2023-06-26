@@ -49,7 +49,7 @@
 
           <tr>
             <td>Return a movie by name</td>
-            <td>/movies/:Title</td>
+            <td>/movies/:title</td>
             <td>GET</td>
             <td>None</td>
             <td>None</td>
@@ -58,16 +58,16 @@
 
           <tr>
             <td>Return data about a genre by name</td>
-            <td>/movies/genres/:Genre</td>
+            <td>/movies/genres/:genre</td>
             <td>GET</td>
-            <td>:Genre</td>
+            <td>:genre</td>
             <td>None</td>
             <td>JSON of a specified genre</td>
           </tr>
 
           <tr>
             <td>Return data about a director by name</td>
-            <td>/movies/directors/:Director</td>
+            <td>/movies/directors/:director</td>
             <td>GET</td>
             <td>:Name</td>
             <td>None</td>
@@ -85,16 +85,16 @@
 
           <tr>
             <td>Return a single user by username</td>
-            <td>/users/:Username</td>
+            <td>/users/:username</td>
             <td>GET</td>
-            <td>:Username</td>
+            <td>:username</td>
             <td>None</td>
             <td>JSON of specfic user</td>
           </tr>
 
           <tr>
             <td>Allow users to change their information</td>
-            <td>/users/:Username</td>
+            <td>/users/:username</td>
             <td>PUT</td>
             <td>:id</td>
             <td>JSON of the new user in structure: {"Username": "", "Password": "", "Email": "", "Birthday": "0000-00-00"}</td>
@@ -103,27 +103,27 @@
 
           <tr>
             <td>Allow users to add movie to favorites list</td>
-            <td>/users/:Username/movies/:MovieID</td>
+            <td>/users/:username/movies/:movieID</td>
             <td>POST</td>
-            <td>:Username, :MovieID</td>
+            <td>:username, :movieID</td>
             <td>None</td>
             <td>JSON of the user</td>
           </tr>
 
           <tr>
             <td>Allow users to remove movie from favorites list</td>
-            <td>/users/:Username/movies/:MovieID</td>
+            <td>/users/:username/movies/:movieID</td>
             <td>DELETE</td>
-            <td>:Username, :MovieID</td>
+            <td>:username, :movieID</td>
             <td>None</td>
             <td>Text confirmation that the movie has been removed</td>
           </tr>
 
           <tr>
             <td>Allow a user to be removed</td>
-            <td>/users/:Username</td>
+            <td>/users/:username</td>
             <td>DELETE</td>
-            <td>:Username</td>
+            <td>:username</td>
             <td>None</td>
             <td>Text confirmation that the user has been removed</td>
           </tr>
