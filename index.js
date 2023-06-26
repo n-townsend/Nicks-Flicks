@@ -82,7 +82,7 @@ app.get('/movies/:Title', (req, res) => {
 
 //Return data about a genre by name
 app.get('/movies/genres/:Genre', (req, res) => {
-	Movies.find({ 'Genre.Name': req.params.Genre })
+	Movies.find({ 'Genre.name': req.params.Genre })
 		.then((movies) => {
 			if (movies.length == 0) {
 				return res.status(404).send('Error: no movies found with the ' + req.params.Genre + ' genre type.');
@@ -98,7 +98,7 @@ app.get('/movies/genres/:Genre', (req, res) => {
 
 //Return data about a director by name
 app.get('/movies/directors/:Director', (req, res) => {
-	Movies.find({ 'Director.Name': req.params.Director })
+	Movies.find({ 'Director.name': req.params.Director })
 		.then((movies) => {
 			if (movies.length == 0) {
 				return res.status(404).send('Error: no movies found with the director ' + req.params.Director + ' name');
