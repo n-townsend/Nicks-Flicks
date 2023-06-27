@@ -9,7 +9,7 @@ const Models = require('./models');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/[Nicks-FlicksDB]', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myflixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express(); // Declares variable encapsulating Express's functionality so it can configure web server.
 app.use(bodyParser.json());
