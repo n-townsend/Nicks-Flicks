@@ -9,26 +9,32 @@ let Users = Models.User,
 
 /*takes a username and password from the request body and uses Mongoose 
 to check your database for a user with the same username*/
-passport.use(new localStrategy({
-    usernameField: 'username',
-    passwordField: 'password'
-  }, (username, password, callback) => {
-    console.log(username + '  ' + password);
-    Users.findOne({ username: username }, (error, user) => {
-      if (error) {
-        console.log(error);
-        return callback(error);
-      }
-  
-      if (!user) {
-        console.log('incorrect username');
-        return callback(null, false, {message: 'Incorrect username or password.'});
-      }
-  
-      console.log('finished');
-      return callback(null, user);
-    });
-  }));
+passport.use(
+  new localStrategy(
+    {
+      usernameField: 'username',
+      passwordField: 'password'
+    },
+    (username, password, callback) => {
+      console.log(username + ' ' + password);
+      Users.findOne({ username: username })
+        .then((user) => {
+          if (!user) {
+            console.log('incorrect username');
+            return callback(null, false, {
+              message: 'Incorrect username or password.'
+            });
+          }
+          console.log('finished');
+          return callback(null, user);
+        })
+        .catch((error) => {
+          console.error(error);
+          return callback(error);
+        });
+    }
+  )
+);
 
 /*allows you to authenticate users based on the JWT submitted alongside their request.
 [secretOrKey]- this signature verifies that the sender of the JWT (the client) 

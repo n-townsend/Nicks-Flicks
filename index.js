@@ -16,10 +16,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(morgan('common'));
 
-let auth = require('./auth.js')(app);
+let auth = require('./auth')(app);
 const passport = require('passport');
 
-require('./passport.js');
+require('./passport');
 
 app.use(express.static('public')); // Will route any request for static files to the correct file in the public folder
 
@@ -32,7 +32,7 @@ app.use(express.static('public')); // Will route any request for static files to
   Email: String,
   Birthday: Date
 }*/
-app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users', (req, res) => {
     Users.findOne({ username: req.body.username }) //Looks for existing username
       .then((user) => {
         if (user) {
