@@ -44,15 +44,18 @@ passport.use(
 /*allows you to authenticate users based on the JWT submitted alongside their request.
 [secretOrKey]- this signature verifies that the sender of the JWT (the client) 
 is who it says it is—and also that the JWT hasn’t been altered.*/
-passport.use(new jwtStrategy({
-    jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'your_jwt_secret'
-  }, (jwtPayload, callback) => {
-    return Users.findById(jwtPayload._id)
-      .then((user) => {
-        return callback(null, user);
-      })
-      .catch((error) => {
-        return callback(error)
-      });
+passport.use(
+  new jwtStrategy(
+    {
+      jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
+      secretOrKey: 'your_jwt_secret',
+    },
+    (jwtPayload, done) => {
+      Users.findById(jwtPayload._id)
+        .then((user) => {
+          return done(null, user);
+        })
+        .catch((error) => {
+          return done(error);
+        });
   }));
