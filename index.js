@@ -31,6 +31,11 @@ require('./passport');
 
 app.use(express.static('public')); // Will route any request for static files to the correct file in the public folder
 
+//Home Page Message
+app.get('/', (req, res) => {
+	res.send('Welcome to my movie app.');
+});
+
 //Add a user
 /* Expected return in JSON with this format
 {
