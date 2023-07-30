@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
   Email: String,
   Birthday: Date
 }*/
-app.post('/users', [ //Validation Logic for Request
+app.post('/users/signup', [ //Validation Logic for Request
 	check('username', 'username is required').isLength({min: 5}),
 	check('username', 'username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
 	check('password', 'password is required').not().isEmpty(),
