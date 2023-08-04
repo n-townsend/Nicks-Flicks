@@ -33,7 +33,8 @@ app.use(express.static('public')); // Will route any request for static files to
 
 //Home Page Message
 app.get('/', (req, res) => {
-	res.send('Welcome to my movie app.');
+	// res.send('Welcome to my movie app.');
+	res.sendFile('./public/documentation.html', {root: __dirname});
 });
 
 //Add a user
@@ -85,7 +86,7 @@ check('email', 'email does not appear to be valid').isEmail()
     });
 
 //Return a list of all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
     Movies.find()
         .then((movies) => {
             res.status(200).json(movies);
@@ -188,12 +189,13 @@ check('email', 'email does not appear to be valid').isEmail()
 	if (!errors.isEmpty()) {
 		return res.status(422).json({ errors: errors.array() });
 	}
+	let hashedPassword = Users.hashPassword(req.body.password);
 	Users.findOneAndUpdate(
 		{ username: req.params.username },
 		{
 			$set: {
 				username: req.body.username,
-				password: req.body.password,
+				password: hashedPassword,
 				email: req.body.email,
 				birthday: req.body.birthday,
 			},
